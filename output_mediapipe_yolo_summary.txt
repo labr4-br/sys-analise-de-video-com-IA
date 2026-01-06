@@ -1,0 +1,28 @@
+============================================================
+RESUMO AUTOMÁTICO DA ANÁLISE DE VÍDEO
+============================================================
+
+Total de frames analisados: 3326
+
+------------------------------------------------------------
+ATIVIDADES DETECTADAS
+------------------------------------------------------------
+  • Parado: 1787 frames (53.7%)
+  • Movimento leve: 1262 frames (37.9%)
+  • Movimento moderado: 256 frames (7.7%)
+  • Movimento intenso: 20 frames (0.6%)
+  • Desconhecida: 1 frames (0.0%)
+
+------------------------------------------------------------
+EMOÇÕES DETECTADAS
+------------------------------------------------------------
+  • Desconhecida: 7794 detecções (82.1%)
+  • Happy: 638 detecções (6.7%)
+  • Neutral: 405 detecções (4.3%)
+  • Sad: 206 detecções (2.2%)
+  • Surprise: 165 detecções (1.7%)
+  • Angry: 160 detecções (1.7%)
+  • Fear: 116 detecções (1.2%)
+  • Disgust: 7 detecções (0.1%)
+
+============================================================
