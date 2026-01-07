@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-class ActivityDetection:
+class ActivityDetector:
     """
     Classifica a atividade global do vídeo em:
     - parado
@@ -16,20 +16,11 @@ class ActivityDetection:
         self.prev_gray = None
 
     def update(self, frame):
-        """
-        Atualiza a detecção de atividade baseada no frame atual
-        
-        Args:
-            frame: Frame BGR do OpenCV
-            
-        Returns:
-            str: Label da atividade detectada
-        """
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         if self.prev_gray is None:
             self.prev_gray = gray
-            return "desconhecida"
+            return "desconhecida", 0.0
 
         diff = cv2.absdiff(gray, self.prev_gray)
         self.prev_gray = gray
@@ -46,4 +37,4 @@ class ActivityDetection:
         else:
             activity = "movimento intenso"
 
-        return activity
+        return activity, motion_value

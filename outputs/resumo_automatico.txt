@@ -1,0 +1,80 @@
+============================================================
+RESUMO AUTOMÁTICO DA ANÁLISE DE VÍDEO
+============================================================
+
+📊 INFORMAÇÕES GERAIS
+----------------------------------------
+Total de frames analisados: 3326
+Data/hora da análise: 06/01/2026 19:59:32
+
+🎯 MÉTRICAS DE QUALIDADE DA DETECÇÃO
+----------------------------------------
+Taxa de detecção facial: 52.6%
+Média de rostos por frame: 0.61
+Confiança média de detecção: 0.76/1.0
+Qualidade média dos rostos: 0.91/1.0
+Tamanho médio dos rostos: 73928 pixels
+Tamanho mínimo: 2809 pixels
+Tamanho máximo: 337561 pixels
+Estabilidade emocional: 80.0%
+
+🔄 DISTRIBUIÇÃO DOS MÉTODOS DE DETECÇÃO
+----------------------------------------
+- mediapipe: 1842 detecções (90.6%)
+- haar: 191 detecções (9.4%)
+
+🚶 ATIVIDADES MAIS FREQUENTES
+----------------------------------------
+- parado: 1961 frames (59.0%)
+- movimento leve: 1147 frames (34.5%)
+- movimento moderado: 197 frames (5.9%)
+- movimento intenso: 20 frames (0.6%)
+- desconhecida: 1 frames (0.0%)
+
+😊 EMOÇÕES MAIS FREQUENTES
+----------------------------------------
+- rosto_lado: 562 rostos detectados (27.6%) (dura 34.7 frames em média)
+- desdém: 364 rostos detectados (17.9%) (dura 6.3 frames em média)
+- careta: 340 rostos detectados (16.7%) (dura 12.6 frames em média)
+- surpreso: 280 rostos detectados (13.8%) (dura 6.4 frames em média)
+- neutro: 234 rostos detectados (11.5%) (dura 13.4 frames em média)
+- triste: 200 rostos detectados (9.8%) (dura 79.4 frames em média)
+- sorridente: 45 rostos detectados (2.2%) (dura 2.8 frames em média)
+- pensativo: 5 rostos detectados (0.2%) (dura 1.8 frames em média)
+- alegre: 2 rostos detectados (0.1%) (dura 1.0 frames em média)
+- angústia: 1 rostos detectados (0.0%) (dura 1.0 frames em média)
+
+🔄 PRINCIPAIS TRANSIÇÕES EMOCIONAIS
+----------------------------------------
+- neutro->rosto_lado: 40 vezes
+- rosto_lado->neutro: 40 vezes
+- rosto_lado->desdém: 38 vezes
+- desdém->rosto_lado: 35 vezes
+- rosto_lado->triste: 24 vezes
+- triste->rosto_lado: 23 vezes
+- surpreso->rosto_lado: 16 vezes
+- rosto_lado->surpreso: 16 vezes
+- careta->surpreso: 14 vezes
+- desdém->careta: 13 vezes
+
+📈 ANÁLISE TEMPORAL (amostras)
+----------------------------------------
+Frame 30 (19:58:33): 3 rosto(s) - Emoções: rosto_lado, rosto_lado, neutro
+Frame 60 (19:58:34): 3 rosto(s) - Emoções: rosto_lado, rosto_lado, rosto_lado
+Frame 90 (19:58:34): 3 rosto(s) - Emoções: rosto_lado, rosto_lado, rosto_lado
+Frame 120 (19:58:35): 2 rosto(s) - Emoções: rosto_lado, rosto_lado
+Frame 150 (19:58:36): 0 rosto(s) - Emoções: 
+
+💡 RECOMENDAÇÕES TÉCNICAS
+----------------------------------------
+✅ Todas as métricas estão dentro dos parâmetros ideais
+
+✅ CONFIGURAÇÃO IDEAL:
+   • Taxa de detecção: > 70%
+   • Confiança média: > 0.6
+   • Tamanho do rosto: > 4000 pixels
+   • Estabilidade emocional: > 60%
+
+============================================================
+FIM DO RELATÓRIO
+============================================================

@@ -14,3 +14,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
+
+# Outros arquivos
+.spyproject/
+.DS_Store

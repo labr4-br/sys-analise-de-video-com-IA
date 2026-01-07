@@ -1,284 +1,219 @@
-# Tech Challenge 4 - Sistema de Análise de Vídeo com IA
+# Tech Challenge 4 - Análise de Vídeo com IA
 
-Sistema inteligente de análise de vídeo que detecta faces, identifica emoções e classifica atividades em tempo real usando técnicas avançadas de visão computacional e aprendizado de máquina.
+Sistema de análise de vídeo que utiliza visão computacional e processamento de imagens para detectar rostos, classificar emoções faciais e identificar atividades em vídeos.
+
+## Descrição
+
+Este projeto implementa uma solução completa de análise de vídeo que combina múltiplas técnicas de visão computacional para:
+
+- **Detecção Facial**: Identifica rostos em cada frame usando MediaPipe Face Detection e Haar Cascade (como fallback)
+- **Classificação de Emoções**: Analisa expressões faciais e classifica emoções como alegre, triste, surpreso, pensativo, entre outras
+- **Detecção de Atividades**: Monitora o movimento global do vídeo e classifica em níveis de atividade (parado, movimento leve, moderado, intenso)
+- **Geração de Resumo**: Cria relatórios automáticos com estatísticas detalhadas e métricas de qualidade
 
 ## Funcionalidades
 
-- **Detecção de Faces**: Utiliza MediaPipe e YOLO como fallback para garantir melhor precisão
-- **Reconhecimento de Emoções**: Análise de expressões faciais com a biblioteca FER (Facial Emotion Recognition)
-- **Classificação de Atividades**: Detecta níveis de movimento no vídeo (parado, leve, moderado, intenso)
-- **Geração de Relatórios**: Exporta resumo estatístico completo da análise
-- **Processamento em Lote**: Processa vídeos completos com barra de progresso
+### 1. Detecção Facial
+- Utiliza **MediaPipe Face Detection** como método principal
+- Fallback automático para **Haar Cascade** quando necessário
+- Suporta detecção de múltiplos rostos por frame
+- Detecta rostos frontais e de lado
+- Calcula confiança de detecção para cada rosto identificado
 
-## Arquitetura do Sistema
+### 2. Classificação de Emoções
+O sistema identifica as seguintes emoções:
+- **Alegre/Sorridente**: Boca aberta com intensidade alta
+- **Triste**: Boca fechada com intensidade baixa
+- **Surpreso**: Boca e olhos muito abertos
+- **Pensativo**: Olhos baixos, boca fechada, pouca variação
+- **Desdém**: Sobrancelhas assimétricas, boca fechada
+- **Careta**: Assimetria significativa da boca
+- **Angústia**: Boca parcialmente aberta, intensidade média
+- **Neutro**: Expressão padrão
+- **Rosto de Lado**: Quando o rosto não está frontal
 
-O projeto está organizado em módulos especializados:
+### 3. Detecção de Atividades
+Classifica o movimento global do vídeo em:
+- **Parado**: Pouco ou nenhum movimento (< 3)
+- **Movimento Leve**: Movimento sutil (3-8)
+- **Movimento Moderado**: Movimento médio (8-20)
+- **Movimento Intenso**: Movimento significativo (> 20)
 
-```
-tech_challenge_4/
-├── main.py                      # Script principal de execução
-├── src/
-│   ├── face_detection.py        # Detecção de faces (MediaPipe + YOLO)
-│   ├── emotion_detection.py     # Análise de emoções (FER)
-│   ├── activity_detection.py    # Classificação de atividades
-│   └── summary.py               # Geração de relatórios
-├── requirements.txt             # Dependências do projeto
-└── README.md                    # Documentação
-```
+### 4. Geração de Relatórios
+O sistema gera dois tipos de relatórios:
+- **Relatório em Texto** (`resumo_automatico.txt`): Resumo legível com estatísticas
+- **Relatório JSON** (`resumo_automatico_detalhado.json`): Dados estruturados para análise posterior
 
-### Fluxo de Processamento
+## Dependências
 
-1. **Captura de Vídeo**: Leitura frame a frame do vídeo de entrada
-2. **Detecção de Faces**: 
-   - Primeira tentativa com MediaPipe (otimizado e rápido)
-   - Fallback para YOLO se MediaPipe não detectar faces
-3. **Análise de Emoções**: FER analisa cada face detectada
-4. **Detecção de Atividade**: Análise de movimento entre frames consecutivos
-5. **Anotação Visual**: Desenha retângulos e labels no frame
-6. **Coleta de Estatísticas**: Acumula dados para o relatório final
-7. **Exportação**: Salva vídeo processado e relatório em texto
+O projeto utiliza as seguintes bibliotecas Python:
+
+- `numpy==1.24.3` - Operações numéricas e arrays
+- `opencv-python==4.8.1.78` - Processamento de imagens e vídeo
+- `mediapipe==0.10.7` - Detecção facial e análise de landmarks
+- `protobuf==3.20.3` - Serialização de dados (requerido pelo MediaPipe)
 
 ## Instalação
 
-### Pré-requisitos
+1. Clone o repositório ou navegue até o diretório do projeto
+2. Crie um ambiente virtual (recomendado)
+3. Instale as dependências descritas em requirements.txt
 
-- Python 3.8 ou superior
-- pip (gerenciador de pacotes Python)
-- Arquivo de vídeo para análise
+## Estrutura do Projeto
 
-### Passos de Instalação
-
-1. **Clone o repositório**:
-```bash
-git clone <url-do-repositorio>
-cd tech_challenge_4
 ```
-
-2. **Crie um ambiente virtual**:
-```bash
-python -m venv venv
-source venv/bin/activate
+tech_challenge_4_pos_tech_ia/
+├── src/
+│   ├── main.py                 # Script principal de execução
+│   ├── face_emotion.py         # Módulo de detecção facial e emoções
+│   ├── activity_detection.py   # Módulo de detecção de atividades
+│   ├── summary.py              # Módulo de geração de resumos
+│   ├── haarcascade_frontalface_default.xml  # Classificador Haar Cascade
+│   └── haarcascade_smile.xml   # Classificador adicional
+├── outputs/                    # Diretório de saída (criado automaticamente)
+│   ├── annotated_video.mp4     # Vídeo processado com anotações
+│   ├── resumo_automatico.txt   # Relatório em texto
+│   └── resumo_automatico_detalhado.json  # Relatório JSON
+├── requirements.txt            # Dependências do projeto
+├── video_tech.mp4              # Vídeo de exemplo (se disponível)
+└── README.md                   # Este arquivo
 ```
-
-3. **Instale as dependências**:
-```bash
-pip install -r requirements.txt
-```
-
-4. **Baixe os modelos necessários**:
-   - **MediaPipe**: Baixe `blaze_face_short_range.tflite` e coloque na raiz do projeto
-   - **YOLO**: O modelo `yolo11n.pt` será baixado automaticamente na primeira execução
 
 ## Como Usar
 
-### Uso Básico
+### Execução Básica
 
-Execute o script principal com um vídeo de entrada:
+Execute o script principal com o caminho do vídeo:
 
 ```bash
-python main.py
+python src/main.py --video_path video_tech.mp4
 ```
 
-Por padrão, o script processa `video_tech.mp4` e gera:
-- `output_mediapipe_yolo.mp4` - Vídeo com anotações visuais
-- `output_mediapipe_yolo_summary.txt` - Relatório estatístico
+### Parâmetros
 
-### Personalização
+- `--video_path`: Caminho para o arquivo de vídeo a ser processado (padrão: `video_tech.mp4`)
 
-Edite o arquivo `main.py` para alterar os caminhos:
+### Exemplo
 
-```python
-if __name__ == "__main__":
-    main('seu_video.mp4', 'saida_processada.mp4')
+```bash
+python src/main.py --video_path meu_video.mp4
 ```
 
-### Ajuste de Parâmetros
+## Saídas do Sistema
 
-#### Detecção de Faces (MediaPipe)
+Após o processamento, o sistema gera:
 
+1. **Vídeo Anotado** (`outputs/annotated_video.mp4`):
+   - Vídeo com bounding boxes coloridos ao redor dos rostos
+   - Labels de emoção para cada rosto detectado
+   - Informações de atividade no canto superior
+   - Informações de debug (abertura da boca, olhos, etc.)
+
+2. **Relatório de Resumo** (`outputs/resumo_automatico.txt`):
+   - Estatísticas gerais (total de frames, data/hora)
+   - Métricas de qualidade da detecção
+   - Distribuição de atividades
+   - Distribuição de emoções
+   - Transições emocionais mais frequentes
+   - Análise temporal
+   - Recomendações técnicas
+
+3. **Relatório JSON** (`outputs/resumo_automatico_detalhado.json`):
+   - Dados estruturados para análise programática
+   - Todas as métricas em formato JSON
+
+## Métricas de Qualidade
+
+O sistema calcula e reporta:
+
+- **Taxa de Detecção Facial**: Percentual de frames com rostos detectados
+- **Confiança Média de Detecção**: Confiança média das detecções
+- **Qualidade Média dos Rostos**: Métrica combinada de tamanho e confiança
+- **Estabilidade Emocional**: Medida de consistência das emoções detectadas
+- **Distribuição de Métodos**: Uso de MediaPipe vs Haar Cascade
+- **Duração Média das Emoções**: Tempo médio que cada emoção persiste
+
+## Cores das Anotações
+
+Cada emoção é representada por uma cor específica no vídeo anotado:
+
+- 🔵 Azul: Surpreso
+- 🟢 Verde: Alegre/Sorridente/Neutro
+- 🟡 Amarelo: Careta/Pensativo
+- 🟣 Magenta: Triste
+- 🟠 Laranja: Desdém
+- 🟣 Roxo: Angústia
+- ⚪ Cinza: Rosto de Lado
+
+## Detalhes Técnicos
+
+### Detecção Facial
+
+O sistema utiliza uma abordagem híbrida:
+1. **MediaPipe Face Detection**: Método principal, mais preciso e rápido
+2. **Haar Cascade**: Fallback quando MediaPipe não detecta rostos
+3. **MediaPipe Face Mesh**: Para análise detalhada de landmarks faciais
+
+### Classificação de Emoções
+
+A classificação utiliza múltiplas métricas:
+- Abertura da boca (distância entre lábios)
+- Abertura dos olhos
+- Posição das sobrancelhas
+- Assimetria facial
+- Intensidade média e desvio padrão da imagem
+- Orientação do rosto (frontal vs lateral)
+
+### Detecção de Atividades
+
+Baseada na diferença absoluta entre frames consecutivos:
+- Converte frames para escala de cinza
+- Calcula diferença pixel a pixel
+- Classifica baseado em limiares empíricos
+
+## Estatísticas Reportadas
+
+O sistema fornece estatísticas detalhadas incluindo:
+
+- Total de frames processados
+- Frames com/sem rostos detectados
+- Taxa de detecção facial
+- Total de rostos detectados
+- Distribuição de métodos de detecção (MediaPipe vs Haar)
+- Mudanças de emoção detectadas
+- Atividades mais frequentes
+- Emoções mais frequentes
+- Principais transições emocionais
+- Análise temporal (amostras)
+
+## Configuração e Ajustes
+
+### Ajustar Limiares de Atividade
+
+Edite `src/activity_detection.py` para modificar os limiares:
 ```python
-# Em src/face_detection.py
-min_detection_confidence=0.6,  # Confiança mínima (0.0 a 1.0)
-min_suppression_threshold=0.3   # Supressão de detecções próximas
-```
-
-#### Detecção de Faces (YOLO)
-
-```python
-# Em main.py
-yolo_face_detection = YOLOFaceDetection(confidence_threshold=0.4)
-```
-
-#### Classificação de Atividades
-
-```python
-# Em src/activity_detection.py
-# Ajuste os limiares de movimento:
 if motion_value < 3:
     activity = "parado"
 elif motion_value < 8:
     activity = "movimento leve"
-elif motion_value < 20:
-    activity = "movimento moderado"
-else:
-    activity = "movimento intenso"
+# ... etc
 ```
 
-## Formato do Relatório
+### Ajustar Sensibilidade de Emoções
 
-O arquivo de resumo gerado contém:
+Edite `src/face_emotion.py` na função `classify_emotion_with_mesh()` para modificar os limiares de classificação.
 
-```
-============================================================
-RESUMO AUTOMÁTICO DA ANÁLISE DE VÍDEO
-============================================================
+### Configurar MediaPipe
 
-Total de frames analisados: 1500
-
-------------------------------------------------------------
-ATIVIDADES DETECTADAS
-------------------------------------------------------------
-  • Movimento leve: 850 frames (56.7%)
-  • Parado: 450 frames (30.0%)
-  • Movimento moderado: 200 frames (13.3%)
-
-------------------------------------------------------------
-EMOÇÕES DETECTADAS
-------------------------------------------------------------
-  • Happy: 450 detecções (45.0%)
-  • Neutral: 300 detecções (30.0%)
-  • Surprise: 150 detecções (15.0%)
-  • Sad: 100 detecções (10.0%)
-
-============================================================
-```
-
-## Tecnologias Utilizadas
-
-### Bibliotecas Principais
-
-- **OpenCV** (4.10.0.84): Processamento de imagens e vídeo
-- **MediaPipe** (0.10.21): Detecção de faces em tempo real
-- **Ultralytics YOLO** (8.3.239): Detecção de objetos e faces (fallback)
-- **FER** (22.5.1): Reconhecimento de emoções faciais
-- **TensorFlow** (2.17.1): Backend para modelos de deep learning
-- **PyTorch** (2.2.2): Framework de deep learning
-- **NumPy** (1.26.4): Computação numérica
-- **tqdm** (4.67.1): Barras de progresso
-
-### Modelos de IA
-
-1. **BlazeFace** (MediaPipe): Detector de faces leve e rápido
-2. **YOLO11n**: Detector de objetos de última geração
-3. **FER**: Rede neural para classificação de emoções
-
-## Detalhes Técnicos
-
-### Detecção de Faces Híbrida
-
-O sistema implementa uma estratégia de fallback inteligente:
-
+Ajuste os parâmetros de detecção em `src/face_emotion.py`:
 ```python
-# Tenta primeiro com MediaPipe (mais rápido)
-faces = media_pipe_face_detection.face_detection(frame, fps)
-
-# Se falhar, usa YOLO (mais robusto)
-if not faces:
-    faces = yolo_face_detection.face_detection(frame)
+face_detector = mp_face_detection.FaceDetection(
+    model_selection=0,  # 0 = curto alcance, 1 = longo alcance
+    min_detection_confidence=0.5  # Limiar de confiança
+)
 ```
 
-### Pré-processamento de Imagens
+## 📄 Licença
 
-Para melhorar a detecção, o sistema aplica equalização de histograma:
+Este projeto foi desenvolvido para o Tech Challenge 4 - Pós-Tech IA.
 
-```python
-frame_yuv = cv2.cvtColor(frame, cv2.COLOR_BGR2YUV)
-frame_yuv[:,:,0] = cv2.equalizeHist(frame_yuv[:,:,0])
-enhanced_frame = cv2.cvtColor(frame_yuv, cv2.COLOR_YUV2BGR)
-```
-
-### Detecção de Atividades
-
-Usa diferença absoluta entre frames consecutivos:
-
-```python
-diff = cv2.absdiff(gray, prev_gray)
-motion_value = float(np.mean(diff))
-```
-
-### Análise de Emoções
-
-Adiciona margem de 20% ao redor das faces para melhor contexto:
-
-```python
-margin = 0.2
-x_margin = int(w * margin)
-y_margin = int(h * margin)
-```
-
-## 🎨 Visualização
-
-O vídeo de saída inclui:
-
-- **Retângulos verdes**: Faces detectadas
-- **Labels de emoção**: Tipo e confiança (em magenta)
-- **Indicador de atividade**: Nível de movimento (em laranja)
-
-## Solução de Problemas
-
-### GPU Desabilitada
-
-O sistema desabilita GPU por padrão para evitar problemas de compatibilidade:
-
-```python
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
-```
-
-Para habilitar GPU, comente ou remova esta linha em `main.py`.
-
-### Erro ao Carregar Modelos
-
-Certifique-se de que:
-- `blaze_face_short_range.tflite` está na raiz do projeto
-- Você tem conexão com internet para baixar o YOLO na primeira execução
-
-### Baixa Taxa de Detecção
-
-Tente:
-- Reduzir `min_detection_confidence` no MediaPipe
-- Reduzir `confidence_threshold` no YOLO
-- Melhorar a iluminação do vídeo de entrada
-
-### Consumo Alto de Memória
-
-Para vídeos muito longos:
-- Processe em lotes menores
-- Reduza a resolução do vídeo de entrada
-- Use um modelo YOLO menor (yolo11n.pt)
-
-## Performance
-
-### Benchmarks Típicos
-
-- **Velocidade**: ~15-30 FPS em CPU moderna
-- **Precisão de Detecção**: >90% em condições ideais
-- **Uso de Memória**: ~2-4 GB RAM
-
-### Otimizações Implementadas
-
-- Inicialização única dos detectores
-- Processamento vetorizado com NumPy
-- Fallback inteligente entre modelos
-- Desabilitação de verbose nos modelos
-
-## Licença
-
-Este projeto é de código aberto e está disponível para uso educacional e comercial.
-
-## Autores
-
-- Bruna Ballerini
-
----
-
-**Nota**: Este projeto foi desenvolvido como parte do Tech Challenge 4 e demonstra a integração de múltiplas tecnologias de IA para análise de vídeo em tempo real.
