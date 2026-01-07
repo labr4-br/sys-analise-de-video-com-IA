@@ -1,31 +1,32 @@
 {
   "geral": {
     "total_frames": 3326,
-    "timestamp": "2026-01-06T19:59:32.840827"
+    "timestamp": "2026-01-06T21:43:57.803206"
   },
   "atividades": {
     "desconhecida": 1,
-    "parado": 1961,
+    "parado": 1963,
     "movimento leve": 1147,
     "movimento intenso": 20,
-    "movimento moderado": 197
+    "movimento moderado": 195
   },
   "emocoes": {
-    "rosto_lado": 562,
+    "rosto_lado": 573,
     "neutro": 234,
-    "triste": 200,
-    "pensativo": 5,
-    "desdém": 364,
-    "careta": 340,
-    "sorridente": 45,
-    "surpreso": 280,
-    "angústia": 1,
-    "alegre": 2
+    "triste": 214,
+    "pensativo": 6,
+    "careta": 351,
+    "sorridente": 41,
+    "desdém": 359,
+    "alegre": 9,
+    "surpreso": 269,
+    "angústia": 3
   },
   "metricas_qualidade": {
-    "face_detection_rate": 0.5255562236921226,
-    "avg_faces_per_frame": 0.611244738424534,
-    "avg_detection_confidence": 0.7617464583037479,
-    "avg_face_quality": 0.9099832611337839,
-    "avg_face_size": 73927.92572552878,
-    "min_face_size": 
+    "face_detection_rate": 0.5309681298857486,
+    "avg_faces_per_frame": 0.6190619362597715,
+    "avg_detection_confidence": 0.7581865276484165,
+    "avg_face_quality": 0.9075131139295513,
+    "avg_face_size": 73662.68382710054
+  }
+}

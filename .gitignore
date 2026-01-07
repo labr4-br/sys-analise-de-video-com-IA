@@ -1,7 +1,6 @@
 # Modelos e videos
 *.tflite
 *.pt
-*.mp4
 
 # Ambientes virtuais Python
 venv/
